@@ -136,7 +136,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="img/b01.jpg">
+                <img src="img/b1.png">
                 <button class="minusBtn">-</button><span class="orderQty">1</span><button class="plusBtn">+</button>
             </div>
             <div class="modal-footer">
@@ -211,14 +211,10 @@
         e.stopPropagation()
         e.preventDefault()
 
-        const target = e.target
-        console.log('target!!!!'+target)
-
         const orderQty = document.querySelector(".orderQty")
 
-        console.log('qty!!!' + qty)
-
         qty += 1
+        console.log('qty!!!' + qty)
 
         orderQty.innerHTML = qty
 
@@ -228,16 +224,12 @@
         e.stopPropagation()
         e.preventDefault()
 
-        const target = e.target
-        console.log('target!!!!'+target)
-
         const orderQty = document.querySelector(".orderQty")
-
-        console.log('qty!!!' + qty)
 
         if (qty > 1) {
             qty -= 1
         }
+        console.log('qty!!!' + qty)
 
         orderQty.innerHTML = qty
 
