@@ -86,13 +86,13 @@
             <div id="tabs">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/burger.json')">Burger</a>
+                        <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/burger.json')">Burger</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/side.json')">Side</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/side.json')">Side</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/dessert.json')">Dessert</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/dessert.json')">Dessert</a>
                     </li>
                 </ul>
                 <div class="menuDiv">
@@ -128,7 +128,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary addBtn">Add Cart</button>
+                <button type="button" class="btn btn-primary addBtn" data-bs-dismiss="modal">Add Cart</button>
             </div>
         </div>
     </div>
