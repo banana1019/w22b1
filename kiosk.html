@@ -68,6 +68,15 @@
         appearance: none;
         font-size: 0.5rem;
     }
+
+    .orderQty {
+        font-size: large;
+    }
+
+    .modal-body button {
+        margin: 10px;
+    }
+
 </style>
 
 <!--<div class="pop hide">-->
@@ -86,7 +95,10 @@
             <div id="tabs">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/burger.json')">Burger</a>
+                        <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/all.json')">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/burger.json')">Burger</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5555/w22b1/side.json')">Side</a>
@@ -125,6 +137,7 @@
             </div>
             <div class="modal-body">
                 <img src="img/b01.jpg">
+                <button class="minusBtn">-</button><span class="orderQty">1</span><button class="plusBtn">+</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -135,11 +148,13 @@
 </div>
 
 <script>
-    loadData('http://localhost:5555/w22b1/burger.json')
+    loadData('http://localhost:5555/w22b1/all.json')
 
     let menus = []
 
     let orders = []
+
+    let qty = 1
 
     function loadData(serverInfo) {
         console.log("loadData: " + serverInfo)
@@ -161,17 +176,6 @@
             const menu = arr[i]
             // console.log(menu)
             str += `<li data-idx="${i}" data-bs-toggle="modal" data-bs-target="#exampleModal"><div class="mdiv"><img src="${menu.picture}"><div>${menu.name}</div><div>${menu.price}</div></div></li>`
-            // str += `
-            //     <div class="col">
-            //       <div class="card h-100">
-            //         <img src="${menu.picture}" class="card-img-top" alt="...">
-            //         <div class="card-body">
-            //           <h5 class="card-title">${menu.name}</h5>
-            //           <p class="card-text">${menu.price}</p>
-            //         </div>
-            //       </div>
-            //     </div>
-            // `
         } // end for
 
         menuList.innerHTML = str
@@ -180,6 +184,10 @@
     const popEle = document.querySelector(".modal")
 
     document.querySelector(".menuList").addEventListener("click", (e) => {
+
+        const orderQty = document.querySelector(".orderQty")
+
+        orderQty.innerHTML = 1
 
         const target = e.target
         const liEle = target.closest("li")
@@ -199,6 +207,42 @@
 
     }, false)
 
+    document.querySelector(".plusBtn").addEventListener("click", (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+
+        const target = e.target
+        console.log('target!!!!'+target)
+
+        const orderQty = document.querySelector(".orderQty")
+
+        console.log('qty!!!' + qty)
+
+        qty += 1
+
+        orderQty.innerHTML = qty
+
+    })
+
+    document.querySelector(".minusBtn").addEventListener("click", (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+
+        const target = e.target
+        console.log('target!!!!'+target)
+
+        const orderQty = document.querySelector(".orderQty")
+
+        console.log('qty!!!' + qty)
+
+        if (qty > 1) {
+            qty -= 1
+        }
+
+        orderQty.innerHTML = qty
+
+    })
+
     document.querySelector(".addBtn").addEventListener("click", (e) => {
         e.stopPropagation()
         e.preventDefault()
@@ -209,6 +253,8 @@
         console.log(menu)
 
         addCart(menu)
+
+        qty = 1
     }, false)
 
     function addCart(menu) {
@@ -218,12 +264,14 @@
         console.log(result)
 
         if (result.length > 0) {
-            result[0].qty += 1
+            // result[0].qty += 1
+            result[0].qty += qty
         } else {
-            orders.push({...menu, qty: 1})
+            orders.push({...menu, qty: qty})
         }
 
         console.log(orders)
+
         showOrderItems()
     }
 
